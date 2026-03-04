@@ -67,9 +67,15 @@
         .phone-nav-item:not(.active) .phone-nav-label{color:var(--text-light)}
         .floating-card{position:absolute;background:#fff;border-radius:16px;padding:14px 18px;box-shadow:var(--shadow-lg);animation:float 4s ease-in-out infinite}
         .floating-card-1{top:60px;right:-20px}
+        .floating-card-2{bottom:100px;left:-30px;animation-delay:2s}
         .floating-card .fc-label{font-size:.65rem;color:var(--text-light);margin-bottom:4px}
         .floating-card .fc-value{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700}
         .floating-card .fc-value .fc-green{color:var(--green-500)}
+        .fc-light{display:inline-block;background:linear-gradient(90deg,var(--purple-500),var(--purple-500),var(--purple-200),#fff,var(--purple-200),var(--purple-500),var(--purple-500));background-size:600% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 16s ease-in-out infinite;font-weight:800}
+        .fc-dark{display:inline-block;animation:darkFade 16s ease-in-out infinite;font-weight:800}
+        .fc-widget-icon{font-size:1.2rem;margin-bottom:2px}
+        @keyframes shimmer{0%,45%{background-position:600% center}45.1%,100%{background-position:-600% center}}
+        @keyframes darkFade{0%,50%{color:#1a1035;text-shadow:none}65%{color:#000;text-shadow:0 0 6px rgba(0,0,0,.15)}80%{color:#1a1035;text-shadow:none}95%,100%{color:#1a1035;text-shadow:none}}
         .features{padding:100px 24px}.features-inner{max-width:1100px;margin:0 auto}
         .section-label{display:inline-block;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple-500);margin-bottom:16px}
         .section-title{font-family:'Outfit',sans-serif;font-size:2.6rem;font-weight:800;letter-spacing:-1.5px;line-height:1.15;margin-bottom:16px}
@@ -130,8 +136,8 @@
                 <div class="phone-journal-header"><span class="phone-day-label">Today's Goals</span><span class="phone-progress-label">3/4</span></div>
                 <div class="phone-progress">
                     <div class="phone-goal"><div class="goal-dot" style="background:var(--purple-500)"></div><span class="goal-name">Push Ups</span><span class="goal-count">10/10</span><span class="goal-check">&#10003;</span></div>
-                    <div class="phone-goal"><div class="goal-dot" style="background:#f59e0b"></div><span class="goal-name">Wall Sit</span><span class="goal-count">0:45/1:00</span></div>
-                    <div class="phone-goal"><div class="goal-dot" style="background:var(--green-500)"></div><span class="goal-name">Pull Ups</span><span class="goal-count">5/8</span></div>
+                    <div class="phone-goal"><div class="goal-dot" style="background:#f59e0b"></div><span class="goal-name">Wall Sit</span><span class="goal-count">1:00/1:00</span><span class="goal-check">&#10003;</span></div>
+                    <div class="phone-goal"><div class="goal-dot" style="background:var(--green-500)"></div><span class="goal-name">Pull Ups</span><span class="goal-count">8/8</span><span class="goal-check">&#10003;</span></div>
                     <div class="phone-goal"><div class="goal-dot" style="background:var(--blue-400)"></div><span class="goal-name">Plank</span><span class="goal-count">0:00/2:00</span></div>
                 </div>
                 <div class="phone-bottom-nav">
@@ -140,7 +146,15 @@
                     <div class="phone-nav-item"><div class="phone-nav-icon">&#9881;</div><span class="phone-nav-label">Settings</span></div>
                 </div>
             </div>
-            <div class="floating-card floating-card-1"><div class="fc-label">Daily Goals</div><div class="fc-value"><span class="fc-green">3</span>/4 Done</div></div>
+            <div class="floating-card floating-card-1">
+                <div class="fc-label">Themes</div>
+                <div class="fc-value"><span class="fc-light">Light</span> &amp; <span class="fc-dark">Dark Mode</span></div>
+            </div>
+            <div class="floating-card floating-card-2">
+                <div class="fc-widget-icon">&#128242;</div>
+                <div class="fc-label">iOS Widget</div>
+                <div class="fc-value">Home Screen</div>
+            </div>
         </div>
     </div></section>
 
@@ -171,7 +185,7 @@
         <div class="support-icon">&#128172;</div>
         <h2>Need help?</h2>
         <p>Have a question, found a bug, or want to suggest a feature? We'd love to hear from you.</p>
-        <a href="mailto:ysoftwareapp@gmail.com" class="support-email">&#9993; ysoftwareapp@gmail.com</a>
+        <a href="/cdn-cgi/l/email-protection#fb8288949d8f8c9a899e9a8b8bbb9c969a9297d5989496" class="support-email">&#9993; <span class="__cf_email__" data-cfemail="6c151f030a181b0d1e090d1c1c2c0b010d0500420f0301">[email&#160;protected]</span></a>
     </div></div></section>
 
     <footer><div class="footer-inner">
@@ -179,10 +193,5 @@
         <div class="footer-links"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="#support">Support</a><a href="https://apps.apple.com/app/id6759989832">App Store</a></div>
     </div></footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         const navbar=document.getElementById('navbar');window.addEventListener('scroll',()=>{navbar.classList.toggle('scrolled',window.scrollY>40)});
-        const observer=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&e.target.classList.add('visible')})},{threshold:.1});
-        document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
-    </script>
-</body>
-</html>
