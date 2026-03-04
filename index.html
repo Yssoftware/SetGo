@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SetGo - HIIT & Workout Timer</title>
+    <meta name="description" content="Your all-in-one workout companion. Set daily goals, track reps and time, and train smarter with HIIT, intervals, and a built-in workout journal.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root{--purple-50:#f3f0ff;--purple-100:#e9e2ff;--purple-200:#d4c8ff;--purple-300:#b5a0ff;--purple-400:#9474f8;--purple-500:#7c5ce7;--purple-600:#6b42d6;--purple-700:#5a32b8;--purple-800:#4a2896;--purple-900:#3d2278;--green-400:#4ade80;--green-500:#22c55e;--orange-400:#fb923c;--blue-400:#60a5fa;--text-primary:#1a1035;--text-secondary:#5c5478;--text-light:#8e85a3;--bg-cream:#faf8ff;--white:#fff;--shadow-sm:0 2px 8px rgba(124,92,231,.06);--shadow-md:0 8px 30px rgba(124,92,231,.1);--shadow-lg:0 20px 60px rgba(124,92,231,.15);--radius:20px}
+        *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+        body{font-family:'DM Sans',sans-serif;color:var(--text-primary);background:var(--bg-cream);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+        nav{position:fixed;top:0;width:100%;z-index:100;padding:16px 0;transition:all .4s ease}
+        nav.scrolled{background:rgba(250,248,255,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(124,92,231,.08)}
+        .nav-inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+        .nav-logo{font-family:'Outfit',sans-serif;font-weight:800;font-size:1.5rem;color:var(--purple-600);text-decoration:none;letter-spacing:-.5px}
+        .nav-logo span{color:var(--purple-400)}
+        .nav-links{display:flex;align-items:center;gap:32px}
+        .nav-links a{font-size:.9rem;font-weight:500;color:var(--text-secondary);text-decoration:none;transition:color .2s}
+        .nav-links a:hover{color:var(--purple-600)}
+        .nav-cta{background:var(--purple-600)!important;color:var(--white)!important;padding:10px 22px;border-radius:12px;font-weight:600!important;transition:all .3s ease!important}
+        .nav-cta:hover{background:var(--purple-700)!important;transform:translateY(-1px);box-shadow:var(--shadow-md)}
+        .hero{min-height:100vh;display:flex;align-items:center;padding:120px 24px 80px;position:relative}
+        .hero-bg{position:absolute;top:-200px;right:-300px;width:900px;height:900px;background:radial-gradient(circle,rgba(124,92,231,.08) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+        .hero-bg-2{position:absolute;bottom:-100px;left:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(148,116,248,.06) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+        .hero-inner{max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative}
+        .hero-content{animation:fadeUp .8s ease-out}
+        .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--purple-100);color:var(--purple-700);padding:8px 16px;border-radius:100px;font-size:.8rem;font-weight:600;margin-bottom:28px;letter-spacing:.3px}
+        .hero-badge svg{width:16px;height:16px}
+        .hero h1{font-family:'Outfit',sans-serif;font-size:3.8rem;font-weight:800;line-height:1.08;letter-spacing:-2px;margin-bottom:20px}
+        .hero h1 .gradient-text{background:linear-gradient(135deg,var(--purple-500),var(--purple-400));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .hero p{font-size:1.15rem;line-height:1.7;color:var(--text-secondary);margin-bottom:36px;max-width:460px}
+        .hero-buttons{display:flex;align-items:center;gap:16px}
+        .btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--purple-600);color:#fff;padding:16px 30px;border-radius:16px;text-decoration:none;font-weight:600;font-size:1rem;transition:all .3s ease;box-shadow:0 4px 20px rgba(107,66,214,.3)}
+        .btn-primary:hover{background:var(--purple-700);transform:translateY(-2px);box-shadow:0 8px 30px rgba(107,66,214,.4)}
+        .btn-primary svg{width:20px;height:20px}
+        .btn-secondary{display:inline-flex;align-items:center;gap:8px;color:var(--text-secondary);padding:16px 24px;border-radius:16px;text-decoration:none;font-weight:500;font-size:1rem;transition:all .2s}
+        .btn-secondary:hover{color:var(--purple-600)}
+        .hero-visual{display:flex;justify-content:center;position:relative;animation:fadeUp .8s ease-out .2s both}
+        .phone-mockup{width:280px;height:580px;background:linear-gradient(145deg,var(--purple-100),var(--purple-50));border-radius:40px;border:3px solid rgba(124,92,231,.1);display:flex;flex-direction:column;align-items:center;padding:40px 20px 20px;position:relative;box-shadow:var(--shadow-lg),inset 0 1px 0 rgba(255,255,255,.8)}
+        .phone-notch{position:absolute;top:12px;width:100px;height:28px;background:var(--text-primary);border-radius:20px;opacity:.15}
+        .phone-timer{margin-top:40px;text-align:center}
+        .phone-tabs{display:flex;gap:8px;margin-bottom:24px;justify-content:center}
+        .phone-tab{padding:6px 16px;border-radius:8px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+        .phone-tab.active{background:var(--purple-500);color:#fff}
+        .phone-tab.inactive{color:var(--text-light)}
+        .phone-time{font-family:'Outfit',sans-serif;font-size:4rem;font-weight:800;color:var(--purple-500);letter-spacing:-2px;line-height:1;margin-bottom:12px}
+        .phone-set{font-size:.75rem;color:var(--text-light);font-weight:500;background:rgba(124,92,231,.06);padding:5px 14px;border-radius:6px;display:inline-block;margin-bottom:20px}
+        .phone-journal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;width:100%}
+        .phone-day-label{font-size:.65rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1px}
+        .phone-progress-label{font-size:.6rem;color:var(--purple-500);font-weight:600}
+        .phone-progress{width:100%}
+        .phone-goal{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border-radius:12px;margin-bottom:8px;box-shadow:var(--shadow-sm)}
+        .goal-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+        .goal-name{font-size:.72rem;font-weight:600;flex:1}
+        .goal-count{font-size:.65rem;color:var(--text-light)}
+        .goal-check{color:var(--green-500);font-size:.8rem}
+        .phone-bottom-nav{display:flex;justify-content:space-around;align-items:center;padding:8px 0 0;border-top:1px solid rgba(124,92,231,.08);margin-top:auto;width:100%}
+        .phone-nav-item{display:flex;flex-direction:column;align-items:center;gap:2px}
+        .phone-nav-icon{font-size:.55rem}
+        .phone-nav-label{font-size:.45rem;text-transform:uppercase;letter-spacing:.5px}
+        .phone-nav-item.active .phone-nav-icon{color:var(--purple-500)}
+        .phone-nav-item.active .phone-nav-label{color:var(--purple-500);font-weight:700}
+        .phone-nav-item:not(.active) .phone-nav-icon{color:var(--text-light)}
+        .phone-nav-item:not(.active) .phone-nav-label{color:var(--text-light)}
+        .floating-card{position:absolute;background:#fff;border-radius:16px;padding:14px 18px;box-shadow:var(--shadow-lg);animation:float 4s ease-in-out infinite}
+        .floating-card-1{top:60px;right:-20px}
+        .floating-card .fc-label{font-size:.65rem;color:var(--text-light);margin-bottom:4px}
+        .floating-card .fc-value{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700}
+        .floating-card .fc-value .fc-green{color:var(--green-500)}
+        .features{padding:100px 24px}.features-inner{max-width:1100px;margin:0 auto}
+        .section-label{display:inline-block;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple-500);margin-bottom:16px}
+        .section-title{font-family:'Outfit',sans-serif;font-size:2.6rem;font-weight:800;letter-spacing:-1.5px;line-height:1.15;margin-bottom:16px}
+        .section-subtitle{font-size:1.05rem;color:var(--text-secondary);line-height:1.7;max-width:520px;margin-bottom:56px}
+        .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+        .feature-card{background:var(--white);border-radius:var(--radius);padding:32px 28px;transition:all .3s ease;border:1px solid rgba(124,92,231,.06)}
+        .feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:rgba(124,92,231,.12)}
+        .feature-icon{width:48px;height:48px;background:var(--purple-50);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:1.3rem}
+        .feature-card h3{font-family:'Outfit',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:10px;letter-spacing:-.3px}
+        .feature-card p{font-size:.9rem;color:var(--text-secondary);line-height:1.6}
+        .languages{padding:80px 24px;background:linear-gradient(180deg,var(--bg-cream) 0%,var(--purple-50) 100%)}
+        .languages-inner{max-width:1100px;margin:0 auto;text-align:center}
+        .lang-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:40px}
+        .lang-tag{padding:10px 20px;background:var(--white);border-radius:100px;font-size:.85rem;font-weight:500;color:var(--text-secondary);border:1px solid rgba(124,92,231,.08);transition:all .2s}
+        .lang-tag:hover{border-color:var(--purple-400);color:var(--purple-600);transform:translateY(-2px)}
+        .support{padding:100px 24px}.support-inner{max-width:600px;margin:0 auto;text-align:center}
+        .support-card{background:var(--white);border-radius:24px;padding:48px 40px;box-shadow:var(--shadow-md);border:1px solid rgba(124,92,231,.06)}
+        .support-icon{width:64px;height:64px;background:var(--purple-50);border-radius:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:1.5rem}
+        .support-card h2{font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:700;margin-bottom:12px;letter-spacing:-.5px}
+        .support-card p{color:var(--text-secondary);line-height:1.6;margin-bottom:28px}
+        .support-email{display:inline-flex;align-items:center;gap:10px;background:var(--purple-50);color:var(--purple-600);padding:14px 28px;border-radius:14px;text-decoration:none;font-weight:600;font-size:.95rem;transition:all .3s ease}
+        .support-email:hover{background:var(--purple-100);transform:translateY(-2px)}
+        footer{padding:40px 24px;border-top:1px solid rgba(124,92,231,.08)}
+        .footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+        .footer-left{font-size:.85rem;color:var(--text-light)}
+        .footer-links{display:flex;gap:24px}
+        .footer-links a{font-size:.85rem;color:var(--text-light);text-decoration:none;transition:color .2s}
+        .footer-links a:hover{color:var(--purple-600)}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        .fade-in{opacity:0;transform:translateY(20px);transition:all .6s ease-out}
+        .fade-in.visible{opacity:1;transform:translateY(0)}
+        @media(max-width:768px){.nav-links{display:none}.hero-inner{grid-template-columns:1fr;text-align:center;gap:40px}.hero h1{font-size:2.6rem;letter-spacing:-1px}.hero p{margin:0 auto 32px}.hero-buttons{justify-content:center;flex-wrap:wrap}.phone-mockup{width:240px;height:500px}.phone-time{font-size:3rem}.floating-card{display:none}.features-grid{grid-template-columns:1fr}.section-title{font-size:2rem}.footer-inner{flex-direction:column;gap:16px;text-align:center}}
+        @media(max-width:480px){.hero h1{font-size:2.1rem}.hero{padding:100px 16px 60px}.support-card{padding:32px 24px}}
+    </style>
+</head>
+<body>
+    <nav id="navbar"><div class="nav-inner"><a href="#" class="nav-logo">Set<span>Go</span></a><div class="nav-links"><a href="#features">Features</a><a href="#languages">Languages</a><a href="#support">Support</a><a href="https://apps.apple.com/app/id6759989832" class="nav-cta">Download</a></div></div></nav>
+
+    <section class="hero"><div class="hero-bg"></div><div class="hero-bg-2"></div><div class="hero-inner">
+        <div class="hero-content">
+            <div class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>Now available on iOS</div>
+            <h1>Train smarter.<br><span class="gradient-text">Track everything.</span></h1>
+            <p>Set daily goals, track reps and time, create custom exercises, and train with HIIT, intervals, Tabata, and more. Your all-in-one workout companion.</p>
+            <div class="hero-buttons">
+                <a href="https://apps.apple.com/app/id6759989832" class="btn-primary"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>Download for iOS</a>
+                <a href="#features" class="btn-secondary">Learn more &#8595;</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="phone-mockup">
+                <div class="phone-notch"></div>
+                <div class="phone-timer">
+                    <div class="phone-tabs"><span class="phone-tab active">Work</span><span class="phone-tab inactive">Rest</span><span class="phone-tab inactive">HIIT</span></div>
+                    <div class="phone-time">02:30</div>
+                    <div class="phone-set">SET 1/3</div>
+                </div>
+                <div class="phone-journal-header"><span class="phone-day-label">Today's Goals</span><span class="phone-progress-label">3/4</span></div>
+                <div class="phone-progress">
+                    <div class="phone-goal"><div class="goal-dot" style="background:var(--purple-500)"></div><span class="goal-name">Push Ups</span><span class="goal-count">10/10</span><span class="goal-check">&#10003;</span></div>
+                    <div class="phone-goal"><div class="goal-dot" style="background:#f59e0b"></div><span class="goal-name">Wall Sit</span><span class="goal-count">0:45/1:00</span></div>
+                    <div class="phone-goal"><div class="goal-dot" style="background:var(--green-500)"></div><span class="goal-name">Pull Ups</span><span class="goal-count">5/8</span></div>
+                    <div class="phone-goal"><div class="goal-dot" style="background:var(--blue-400)"></div><span class="goal-name">Plank</span><span class="goal-count">0:00/2:00</span></div>
+                </div>
+                <div class="phone-bottom-nav">
+                    <div class="phone-nav-item"><div class="phone-nav-icon">&#9201;</div><span class="phone-nav-label">Exercises</span></div>
+                    <div class="phone-nav-item active"><div class="phone-nav-icon">&#128221;</div><span class="phone-nav-label">Journal</span></div>
+                    <div class="phone-nav-item"><div class="phone-nav-icon">&#9881;</div><span class="phone-nav-label">Settings</span></div>
+                </div>
+            </div>
+            <div class="floating-card floating-card-1"><div class="fc-label">Daily Goals</div><div class="fc-value"><span class="fc-green">3</span>/4 Done</div></div>
+        </div>
+    </div></section>
+
+    <section class="features" id="features"><div class="features-inner">
+        <div class="section-label">Features</div>
+        <h2 class="section-title">Everything you need<br>to train your way</h2>
+        <p class="section-subtitle">From quick interval timers to detailed daily journals, SetGo adapts to how you work out.</p>
+        <div class="features-grid">
+            <div class="feature-card fade-in"><div class="feature-icon">&#9201;</div><h3>Interval Timer</h3><p>Fully customizable work, rest, and HIIT timers. Set your rounds, adjust durations, and let SetGo handle the transitions.</p></div>
+            <div class="feature-card fade-in"><div class="feature-icon">&#128221;</div><h3>Workout Journal</h3><p>Set daily goals for each day of the week. Track reps, time, and completion. See your progress build day by day.</p></div>
+            <div class="feature-card fade-in"><div class="feature-icon">&#128170;</div><h3>Custom Exercises</h3><p>Create your own exercises, save workout presets, and access them instantly. Your library, your way.</p></div>
+            <div class="feature-card fade-in"><div class="feature-icon">&#9889;</div><h3>HIIT & Tabata</h3><p>Built-in support for HIIT and Tabata workouts. Configure intervals, rest periods, and rounds to match your training style.</p></div>
+            <div class="feature-card fade-in"><div class="feature-icon">&#127912;</div><h3>Themes & Dark Mode</h3><p>Choose from multiple color themes. Switch between light and dark mode. Make SetGo feel like yours.</p></div>
+            <div class="feature-card fade-in"><div class="feature-icon">&#128242;</div><h3>Home Screen Widget</h3><p>See your daily goals at a glance without opening the app. Track progress right from your home screen.</p></div>
+        </div>
+    </div></section>
+
+    <section class="languages" id="languages"><div class="languages-inner">
+        <div class="section-label">Global</div>
+        <h2 class="section-title">Available in 22 languages</h2>
+        <p class="section-subtitle" style="margin:0 auto 0">Train in the language you think in.</p>
+        <div class="lang-tags">
+            <span class="lang-tag">English</span><span class="lang-tag">Fran&#231;ais</span><span class="lang-tag">Espa&#241;ol</span><span class="lang-tag">Deutsch</span><span class="lang-tag">Italiano</span><span class="lang-tag">Portugu&#234;s</span><span class="lang-tag">Nederlands</span><span class="lang-tag">Dansk</span><span class="lang-tag">Svenska</span><span class="lang-tag">Suomi</span><span class="lang-tag">&#917;&#955;&#955;&#951;&#957;&#953;&#954;&#940;</span><span class="lang-tag">&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;</span><span class="lang-tag">T&#252;rk&#231;e</span><span class="lang-tag">&#2361;&#2367;&#2344;&#2381;&#2342;&#2368;</span><span class="lang-tag">&#26085;&#26412;&#35486;</span><span class="lang-tag">&#54620;&#44397;&#50612;</span><span class="lang-tag">&#31616;&#20307;&#20013;&#25991;</span><span class="lang-tag">&#32321;&#39636;&#20013;&#25991;</span><span class="lang-tag">&#3616;&#3634;&#3625;&#3634;&#3652;&#3607;&#3618;</span><span class="lang-tag">Ti&#7871;ng Vi&#7879;t</span><span class="lang-tag">Bahasa Indonesia</span><span class="lang-tag">&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</span>
+        </div>
+    </div></section>
+
+    <section class="support" id="support"><div class="support-inner"><div class="support-card fade-in">
+        <div class="support-icon">&#128172;</div>
+        <h2>Need help?</h2>
+        <p>Have a question, found a bug, or want to suggest a feature? We'd love to hear from you.</p>
+        <a href="mailto:ysoftwareapp@gmail.com" class="support-email">&#9993; ysoftwareapp@gmail.com</a>
+    </div></div></section>
+
+    <footer><div class="footer-inner">
+        <div class="footer-left">&copy; 2026 Ysoftware. All rights reserved.</div>
+        <div class="footer-links"><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a><a href="#support">Support</a><a href="https://apps.apple.com/app/id6759989832">App Store</a></div>
+    </div></footer>
+
+    <script>
+        const navbar=document.getElementById('navbar');window.addEventListener('scroll',()=>{navbar.classList.toggle('scrolled',window.scrollY>40)});
+        const observer=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&e.target.classList.add('visible')})},{threshold:.1});
+        document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+    </script>
+</body>
+</html>
